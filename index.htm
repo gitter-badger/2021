@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>title</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+body{}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(e){
+	console.log( "DOMContentLoaded" );
+	var bb=document.querySelector("body");
+	bb.insertAdjacentHTML('beforeend', 'body');
+	console.log(bb);
+});
+
+$(function(){});
+
+$(()=>{
+	console.log('jq');
+  //
+  $.gg=[];
+  $.gg.url=`
+
+https://pbs.twimg.com/media/Eqob4znVQAEUPcB?format=jpg&name=large
+
+`;
+//https://zh150129.gear.host/curl_getinfo_usage.php?inputurl=https://pbs.twimg.com/media/ENLg9-1VAAAg-x9.png
+  $.gg.bloburl='';
+  //
+  //poi();
+  poi2();
+});
+function poi2(){
+ 	console.log('poi2');
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+	switch(this.readyState){
+		case 1:
+			console.log(this.readyState,'服务器连接已建立');
+			break;
+		case 2:
+			console.log(this.readyState,'请求已接收');
+			break;
+		case 3:
+			console.log(this.readyState,'请求处理中');
+			break;
+		case 4:
+			console.log(this.readyState,'请求已完成，且响应已就绪');
+			break;
+		default:
+			console.log('default:');
+	}
+    if (this.readyState == 4 && this.status == 200){
+      //img.src = url.createObjectURL(this.response);
+    	console.log('ok');
+      $.gg.bloburl =  window.URL.createObjectURL(this.response);
+    	console.log( $.gg.bloburl );
+      
+      $( '<img>', {
+        'class': 'good',
+        src:$.gg.bloburl,
+      }).appendTo('body');
+    }
+  }
+  xhr.open('GET', $.gg.url);
+  xhr.responseType = 'blob';
+  xhr.send();      
+}
+
+function poi(){
+  var url=``;
+  
+  var FFF=$.get(url);
+  FFF.done(function(a,b,c){
+    	console.log('成功',b,c);
+  });
+  FFF.fail(function(e){
+    	console.log('失敗');
+  });
+  FFF.always(function(e){
+    	console.log('總是');
+  });
+  
+}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>
